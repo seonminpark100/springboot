@@ -2,7 +2,9 @@ package com.edu.springboot;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -62,4 +64,13 @@ public class MainController {
 	public String registProcess(QuizVO quizVO) {
 		return "member/result";
 	}
+	@RequestMapping("/memberLogin.do")
+	public String memberRegist2() {
+		return "member/login";
+	}
+	@RequestMapping("memberlogin.do")
+	public String registProcess(QuizVO2 quizVO2) {
+		return "member/result2";
+	}
+	
 }
