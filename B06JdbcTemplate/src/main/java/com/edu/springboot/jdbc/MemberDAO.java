@@ -65,11 +65,10 @@ public class MemberDAO implements IMemberService{
 		});
 		return result;
 	}
-
 	@Override
 	public int delete(MemberDTO memberDTO) {
-		
-		return 0;
+		String sql = "Delete FROM member WHERE id=?";
+		int result = jdbcTemplate.update(sql, new Object[] {memberDTO.getId()});
+		return result;
 	}
-	
 }

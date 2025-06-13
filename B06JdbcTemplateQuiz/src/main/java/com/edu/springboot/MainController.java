@@ -33,8 +33,21 @@ public class MainController {
 	IMemberService dao;
 	
 	@RequestMapping("/list.do")
-	public String member2(Model model) {
-		model.addAttribute("memberList", dao.select());
+	public String member2(Model model, @RequestParam(value = "searchField", required = false) String searchField,
+			@RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
+		List<MemberDTO> memberList;
+
+		if (searchKeyword != null && !searchKeyword.trim().isEmpty()
+				|| (searchField != null && !searchField.trim().isEmpty())) {
+			MemberDTO searchDTO = new MemberDTO();
+			searchDTO.setSearchField(searchField);
+			searchDTO.setSearchKeyword(searchKeyword);
+			memberList = dao.searchMembers(searchDTO);
+		} else {
+			memberList = dao.select();
+		}
+
+		model.addAttribute("memberList", memberList);
 		return "list";
 	}
 //	@RequestMapping(value = "/regist.do", method = RequestMethod.GET)

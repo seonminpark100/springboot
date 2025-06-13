@@ -1,6 +1,8 @@
 package com.edu.springboot;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -63,10 +65,24 @@ public class MainController {
 		if(result==1) System.out.println("수정되었습니다.");
 		return "redirect:list.do";
 	}
+//	@RequestMapping("/delete.do")
+//	public String member4(MemberDTO memberDTO) {
+//		int result = dao.delete(memberDTO);
+//		if(result==1) System.out.println("삭제되었습니다.");
+//		return "redirect:list.do";
+//	}
 	@RequestMapping("/delete.do")
-	public String member4(MemberDTO memberDTO) {
+	@ResponseBody
+	public Map<String, String> member4(MemberDTO memberDTO) {
 		int result = dao.delete(memberDTO);
-		if(result==1) System.out.println("삭제되었습니다.");
-		return "redirect:list.do";
+		Map<String, String> map = new HashMap<>();
+		if (result==1) {
+			System.out.println("삭제되었습니다.");
+			map.put("result", "success");
+		} else {
+			System.out.println("삭제 실패");
+			map.put("result", "fail");
+		}
+		return map;
 	}
 }
